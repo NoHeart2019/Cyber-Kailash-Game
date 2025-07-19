@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赛博转冈仁波齐</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#f97316',
+                        dark: '#0f172a',
+                        light: '#f8fafc'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Rajdhani', 'sans-serif']
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .text-shadow-lg {
+                text-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+            }
+            .bg-blur {
+                backdrop-filter: blur(8px);
+            }
+            .animate-float {
+                animation: float 3s ease-in-out infinite;
+            }
+            .animate-pulse-slow {
+                animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+            @keyframes float {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-10px);
+                }
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-dark to-slate-900 text-light min-h-screen font-sans overflow-x-hidden">
+    <!-- 粒子背景 -->
+    <div id="particles-js" class="fixed inset-0 z-0 opacity-30"></div>
+
+    <!-- 游戏容器 -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+        <!-- 顶部导航 -->
+        <header class="bg-dark/80 bg-blur border-b border-white/10 sticky top-0 z-50">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fa fa-compass text-secondary text-2xl"></i>
+                    <h1 class="text-xl md:text-2xl font-display font-bold tracking-wider">赛博转冈仁波齐</h1>
+                </div>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="hover:text-secondary transition-colors duration-300 flex items-center">
+                        <i class="fa fa-home mr-1"></i> 首页
+                    </a>
+                    <a href="#game" class="hover:text-secondary transition-colors duration-300 flex items-center">
+                        <i class="fa fa-gamepad mr-1"></i> 游戏
+                    </a>
+                    <a href="#about" class="hover:text-secondary transition-colors duration-300 flex items-center">
+                        <i class="fa fa-info-circle mr-1"></i> 关于
+                    </a>
+                    <a href="#settings" class="hover:text-secondary transition-colors duration-300 flex items-center">
+                        <i class="fa fa-cog mr-1"></i> 设置
+                    </a>
+                </nav>
+                <button class="md:hidden text-2xl" id="menu-toggle">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <!-- 移动端菜单 -->
+            <div id="mobile-menu" class="md:hidden hidden bg-dark/95 bg-blur">
+                <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                    <a href="#" class="hover:text-secondary transition-colors duration-300 py-2 flex items-center">
+                        <i class="fa fa-home mr-2 w-5"></i> 首页
+                    </a>
+                    <a href="#game" class="hover:text-secondary transition-colors duration-300 py-2 flex items-center">
+                        <i class="fa fa-gamepad mr-2 w-5"></i> 游戏
+                    </a>
+                    <a href="#about" class="hover:text-secondary transition-colors duration-300 py-2 flex items-center">
+                        <i class="fa fa-info-circle mr-2 w-5"></i> 关于
+                    </a>
+                    <a href="#settings" class="hover:text-secondary transition-colors duration-300 py-2 flex items-center">
+                        <i class="fa fa-cog mr-2 w-5"></i> 设置
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要内容 -->
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <!-- 欢迎区域 -->
+            <section class="mb-16 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-display font-bold mb-6 leading-tight text-shadow-lg">
+                        踏上数字朝圣之旅
+                    </h2>
+                    <p class="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
+                        在赛博空间中体验转山的精神之旅，结合现代科技与传统朝圣文化，探索数字与信仰的边界。
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4 mb-10">
+                        <a href="#game" class="px-8 py-3 bg-secondary hover:bg-secondary/90 text-white rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-secondary/30">
+                            <i class="fa fa-play-circle mr-2"></i>开始旅程
+                        </a>
+                        <a href="#about" class="px-8 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg font-medium transition-all duration-300 border border-white/20">
+                            <i class="fa fa-book mr-2"></i>了解更多
+                        </a>
+                    </div>
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://picsum.photos/id/1036/800/450" alt="赛博风格的冈仁波齐山" class="w-full h-auto object-cover rounded-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4 right-4 text-left">
+                            <span class="text-xs md:text-sm text-gray-300">虚拟与现实的交融</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 游戏区域 -->
+            <section id="game" class="mb-16">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold mb-4">赛博转山体验</h2>
+                    <p class="text-gray-300 max-w-2xl mx-auto">使用键盘方向键或WASD移动角色，围绕神山完成转山。收集能量点，避开数字障碍，体验现代与传统的交融。</p>
+                </div>
+                
+                <div class="relative bg-dark/50 rounded-xl border border-white/10 p-2 md:p-6 shadow-xl">
+                    <!-- 游戏状态 -->
+                    <div class="flex justify-between items-center mb-4 px-2">
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center">
+                                <i class="fa fa-map-o text-secondary mr-2"></i>
+                                <span id="progress" class="font-medium">进度: 0%</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa fa-bolt text-yellow-400 mr-2"></i>
+                                <span id="energy" class="font-medium">能量: 100%</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa fa-mountain text-green-400 mr-2"></i>
+                                <span id="player-elevation" class="font-medium">海拔: 4675米</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa fa-location-arrow text-blue-400 mr-2"></i>
+                                <span id="current-location" class="font-medium">位置: 塔钦</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button id="start-btn" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-md transition-colors">
+                                <i class="fa fa-play mr-1"></i> 开始
+                            </button>
+                            <button id="pause-btn" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-md transition-colors hidden">
+                                <i class="fa fa-pause mr-1"></i> 暂停
+                            </button>
+                            <button id="reset-btn" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-md transition-colors">
+                                <i class="fa fa-refresh mr-1"></i> 重置
+                            </button>
+                            <button id="auto-pilot-btn" class="px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-md transition-colors">
+                                <i class="fa fa-rocket mr-1"></i> 自动朝圣
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 游戏画布 -->
+                    <div class="relative aspect-[16/9] bg-black/50 rounded-lg overflow-hidden">
+                        <canvas id="game-canvas" class="w-full h-full"></canvas>
+                        
+                        <!-- 游戏开始覆盖层 -->
+                        <div id="game-start" class="absolute inset-0 flex flex-col items-center justify-center bg-dark/80 z-10">
+                            <h3 class="text-2xl md:text-3xl font-display font-bold mb-4 animate-pulse-slow">准备开始转山</h3>
+                            <p class="text-gray-300 mb-6 max-w-md text-center">按"开始"按钮，或按空格键开始你的数字朝圣之旅</p>
+                            <button id="overlay-start-btn" class="px-6 py-3 bg-secondary hover:bg-secondary/90 text-white rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                <i class="fa fa-compass mr-2"></i>开始朝圣
+                            </button>
+                        </div>
+                        
+                        <!-- 游戏结束覆盖层 -->
+                        <div id="game-over" class="absolute inset-0 flex-col items-center justify-center bg-dark/80 z-10 hidden">
+                            <h3 class="text-2xl md:text-3xl font-display font-bold mb-2 text-secondary">朝圣完成</h3>
+                            <p id="final-progress" class="text-xl mb-1">完成度: 100%</p>
+                            <p id="final-message" class="text-gray-300 mb-6 max-w-md text-center">你已完成数字世界的转山之旅，愿这份坚持与信念伴随你的现实生活。</p>
+                            <div class="flex space-x-3">
+                                <button id="restart-btn" class="px-5 py-2 bg-secondary hover:bg-secondary/90 text-white rounded-lg font-medium transition-all duration-300">
+                                    <i class="fa fa-repeat mr-2"></i>再转一次
+                                </button>
+                                <button id="share-btn" class="px-5 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-all duration-300">
+                                    <i class="fa fa-share-alt mr-2"></i>分享成就
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- 路线提示覆盖层 -->
+                        <div id="route-guide" class="absolute bottom-4 left-4 bg-dark/80 bg-blur rounded-lg p-3 border border-white/10 max-w-xs z-20 hidden">
+                            <h4 class="font-medium text-secondary mb-2">朝圣路线指南</h4>
+                            <p id="route-step" class="text-sm text-gray-300 mb-2">当前位置: 塔钦</p>
+                            <p id="route-instruction" class="text-xs text-gray-400">沿顺时针方向前进，保持神山在你的右侧</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 游戏控制 -->
+                    <div class="mt-6 p-4 bg-dark/30 rounded-lg border border-white/10">
+                        <h4 class="font-medium mb-3 flex items-center">
+                            <i class="fa fa-gamepad text-secondary mr-2"></i> 游戏控制
+                        </h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div class="flex items-center p-2 bg-dark/50 rounded">
+                                <span class="bg-white/10 px-3 py-1 rounded font-mono mr-2">↑</span>
+                                <span class="text-sm">向前移动</span>
+                            </div>
+                            <div class="flex items-center p-2 bg-dark/50 rounded">
+                                <span class="bg-white/10 px-3 py-1 rounded font-mono mr-2">↓</span>
+                                <span class="text-sm">向后移动</span>
+                            </div>
+                            <div class="flex items-center p-2 bg-dark/50 rounded">
+                                <span class="bg-white/10 px-3 py-1 rounded font-mono mr-2">←</span>
+                                <span class="text-sm">向左转</span>
+                            </div>
+                            <div class="flex items-center p-2 bg-dark/50 rounded">
+                                <span class="bg-white/10 px-3 py-1 rounded font-mono mr-2">→</span>
+                                <span class="text-sm">向右转</span>
+                            </div>
+                            <div class="flex items-center p-2 bg-dark/50 rounded">
+                                <span class="bg-white/10 px-3 py-1 rounded font-mono mr-2">空格键</span>
+                                <span class="text-sm">开始/暂停</span>
+                            </div>
+                            <div class="flex items-center p-2 bg-dark/50 rounded">
+                                <span class="bg-white/10 px-3 py-1 rounded font-mono mr-2">R</span>
+                                <span class="text-sm">重置游戏</span>
+                            </div>
+                            <div class="flex items-center p-2 bg-dark/50 rounded">
+                                <span class="bg-white/10 px-3 py-1 rounded font-mono mr-2">A</span>
+                                <span class="text-sm">自动朝圣</span>
+                            </div>
+                            <div class="flex items-center p-2 bg-dark/50 rounded">
+                                <span class="bg-white/10 px-3 py-1 rounded font-mono mr-2">G</span>
+                                <span class="text-sm">显示路线指南</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 新增路段信息 -->
+                        <div class="mt-4 pt-4 border-t border-white/10">
+                            <h4 class="font-medium mb-2 flex items-center">
+                                <i class="fa fa-road text-secondary mr-2"></i> 当前路段
+                            </h4>
+                            <div class="text-sm text-gray-400">
+                                <p>第<span id="current-segment">1</span>天：<span id="segment-info">塔钦 → 止热寺</span></p>
+                                <p>距离：<span id="segment-distance">20</span>公里 | 预计时间：<span id="segment-time">6小时左右</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 关于区域 -->
+            <section id="about" class="mb-16">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold mb-4">关于赛博转冈仁波齐</h2>
+                    <p class="text-gray-300 max-w-2xl mx-auto">探索传统与数字世界的交融，体验独特的朝圣之旅</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-dark/30 rounded-xl p-6 border border-white/10 hover:border-secondary/30 transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-mountain text-secondary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">冈仁波齐的意义</h3>
+                        </div>
+                        <p class="text-gray-300 mb-4">
+                            冈仁波齐是西藏最神圣的神山，被印度教、藏传佛教、苯教和古耆那教认定为世界的中心。每年都有大量信徒前往转山，以祈求福祉和解脱。
+                        </p>
+                        <p class="text-gray-300">
+                            转山是一种庄严的宗教仪式，信徒们相信围绕冈仁波齐转山可以洗清罪孽，积累功德。
+                        </p>
+                    </div>
+                    
+                    <div class="bg-dark/30 rounded-xl p-6 border border-white/10 hover:border-secondary/30 transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-vr-cardboard text-secondary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">数字朝圣的创新</h3>
+                        </div>
+                        <p class="text-gray-300 mb-4">
+                            "赛博转冈仁波齐"将传统朝圣与数字技术相结合，创造了一种全新的精神体验。在无法亲自前往神山的情况下，信徒和探索者可以通过数字方式感受转山的神圣。
+                        </p>
+                        <p class="text-gray-300">
+                            这款游戏不仅是一种娱乐，更是一种对传统与现代交融的探索，让更多人能够体验到转山的意义和精神内涵。
+                        </p>
+                    </div>
+                    
+                    <div class="bg-dark/30 rounded-xl p-6 border border-white/10 hover:border-secondary/30 transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-code text-secondary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">技术实现</h3>
+                        </div>
+                        <p class="text-gray-300 mb-4">
+                            游戏采用了现代Web技术，包括HTML5 Canvas、JavaScript和Tailwind CSS，创造了流畅的游戏体验。3D效果通过2D渲染技术模拟，提供了沉浸式的视觉体验。
+                        </p>
+                        <p class="text-gray-300">
+                            游戏地图基于冈仁波齐的实际地理特征进行数字重建，力求在虚拟世界中呈现神山的庄严与神圣。
+                        </p>
+                    </div>
+                    
+                    <div class="bg-dark/30 rounded-xl p-6 border border-white/10 hover:border-secondary/30 transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-users text-secondary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">文化与精神</h3>
+                        </div>
+                        <p class="text-gray-300 mb-4">
+                            我们尊重并保护所有宗教信仰和文化传统，这款游戏旨在以现代数字方式呈现传统朝圣体验，增进不同文化间的理解与尊重。
+                        </p>
+                        <p class="text-gray-300">
+                            游戏中的所有元素都经过精心设计，确保不冒犯任何宗教情感，而是以一种庄严和尊重的方式呈现这一神圣主题。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 设置区域 -->
+            <section id="settings" class="mb-16">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold mb-4">游戏设置</h2>
+                    <p class="text-gray-300 max-w-2xl mx-auto">自定义你的游戏体验，找到最适合你的朝圣方式</p>
+                </div>
+                
+                <div class="bg-dark/30 rounded-xl p-6 md:p-8 border border-white/10 max-w-3xl mx-auto">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-medium mb-4 flex items-center">
+                                <i class="fa fa-volume-up text-secondary mr-2"></i> 声音设置
+                            </h3>
+                            
+                            <div class="mb-4">
+                                <label class="block text-sm text-gray-300 mb-2">音量</label>
+                                <input type="range" id="volume-slider" min="0" max="100" value="70" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-secondary">
+                                <div class="flex justify-between text-xs text-gray-400 mt-1">
+                                    <span>静音</span>
+                                    <span>最大</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="music-toggle" checked class="w-4 h-4 text-secondary rounded border-gray-600 focus:ring-secondary">
+                                    <span class="ml-2 text-sm">背景音乐</span>
+                                </label>
+                            </div>
+                            
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="sfx-toggle" checked class="w-4 h-4 text-secondary rounded border-gray-600 focus:ring-secondary">
+                                    <span class="ml-2 text-sm">音效</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-medium mb-4 flex items-center">
+                                <i class="fa fa-desktop text-secondary mr-2"></i> 显示设置
+                            </h3>
+                            
+                            <div class="mb-4">
+                                <label class="block text-sm text-gray-300 mb-2">画面质量</label>
+                                <select id="quality-select" class="w-full bg-dark/60 border border-gray-600 rounded-md py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-secondary">
+                                    <option value="high">高 (推荐)</option>
+                                    <option value="medium">中</option>
+                                    <option value="low">低</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="fps-toggle" class="w-4 h-4 text-secondary rounded border-gray-600 focus:ring-secondary">
+                                    <span class="ml-2 text-sm">显示FPS</span>
+                                </label>
+                            </div>
+                            
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="particles-toggle" checked class="w-4 h-4 text-secondary rounded border-gray-600 focus:ring-secondary">
+                                    <span class="ml-2 text-sm">环境粒子效果</span>
+                                </label>
+                            </div>
+                            
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="route-guide-toggle" checked class="w-4 h-4 text-secondary rounded border-gray-600 focus:ring-secondary">
+                                    <span class="ml-2 text-sm">显示路线指南</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 pt-6 border-t border-white/10">
+                        <h3 class="text-lg font-medium mb-4 flex items-center">
+                            <i class="fa fa-user-circle text-secondary mr-2"></i> 个人设置
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="mb-4">
+                                <label for="player-name" class="block text-sm text-gray-300 mb-2">朝圣者名称</label>
+                                <input type="text" id="player-name" value="朝圣者" class="w-full bg-dark/60 border border-gray-600 rounded-md py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-secondary">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="block text-sm text-gray-300 mb-2">角色外观</label>
+                                <div class="flex space-x-3">
+                                    <button class="character-btn w-10 h-10 rounded-full bg-blue-500 border-2 border-white"></button>
+                                    <button class="character-btn w-10 h-10 rounded-full bg-red-500 border border-gray-500"></button>
+                                    <button class="character-btn w-10 h-10 rounded-full bg-green-500 border border-gray-500"></button>
+                                    <button class="character-btn w-10 h-10 rounded-full bg-yellow-500 border border-gray-500"></button>
+                                    <button class="character-btn w-10 h-10 rounded-full bg-purple-500 border border-gray-500"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex justify-end">
+                        <button id="save-settings" class="px-6 py-2 bg-secondary hover:bg-secondary/90 text-white rounded-lg font-medium transition-all duration-300">
+                            <i class="fa fa-save mr-2"></i>保存设置
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 分享区域 -->
+            <section class="mb-16">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold mb-4">分享你的朝圣体验</h2>
+                    <p class="text-gray-300 max-w-2xl mx-auto mb-8">将你的数字朝圣旅程分享给朋友，一起探索传统与现代的交融</p>
+                    
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="#" class="flex items-center justify-center w-12 h-12 rounded-full bg-[#1877F2] hover:bg-[#1877F2]/90 transition-colors">
+                            <i class="fa fa-facebook text-white"></i>
+                        </a>
+                        <a href="#" class="flex items-center justify-center w-12 h-12 rounded-full bg-[#1DA1F2] hover:bg-[#1DA1F2]/90 transition-colors">
+                            <i class="fa fa-twitter text-white"></i>
+                        </a>
+                        <a href="#" class="flex items-center justify-center w-12 h-12 rounded-full bg-[#25D366] hover:bg-[#25D366]/90 transition-colors">
+                            <i class="fa fa-whatsapp text-white"></i>
+                        </a>
+                        <a href="#" class="flex items-center justify-center w-12 h-12 rounded-full bg-[#0A66C2] hover:bg-[#0A66C2]/90 transition-colors">
+                            <i class="fa fa-linkedin text-white"></i>
+                        </a>
+                        <a href="#" class="flex items-center justify-center w-12 h-12 rounded-full bg-[#E60023] hover:bg-[#E60023]/90 transition-colors">
+                            <i class="fa fa-pinterest text-white"></i>
+                        </a>
+                        <a href="#" class="flex items-center justify-center w-12 h-12 rounded-full bg-[#FF0000] hover:bg-[#FF0000]/90 transition-colors">
+                            <i class="fa fa-youtube-play text-white"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="bg-dark/80 border-t border-white/10 py-8">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <i class="fa fa-compass text-secondary text-2xl"></i>
+                            <h3 class="text-xl font-display font-bold">赛博转冈仁波齐</h3>
+                        </div>
+                        <p class="text-gray-400 mb-4">
+                            数字朝圣体验，传统与现代的交融。
+                        </p>
+                        <p class="text-gray-400 text-sm">
+                            © 2025 赛博转山团队. 保留所有权利.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-medium mb-4">快速链接</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-secondary transition-colors">首页</a></li>
+                            <li><a href="#game" class="text-gray-400 hover:text-secondary transition-colors">游戏</a></li>
+                            <li><a href="#about" class="text-gray-400 hover:text-secondary transition-colors">关于</a></li>
+                            <li><a href="#settings" class="text-gray-400 hover:text-secondary transition-colors">设置</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-medium mb-4">联系我们</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-center text-gray-400">
+                                <i class="fa fa-envelope-o text-secondary mr-2"></i>
+                                <a href="mailto:info@cyberkailash.com" class="hover:text-secondary transition-colors">XiaoHeLiuShui2025@Outlook.com</a>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <i class="fa fa-phone text-secondary mr-2"></i>
+                                <span>+86 123 4567 8901</span>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <i class="fa fa-map-marker text-secondary mr-2"></i>
+                                <span>北京市海淀区中关村科技园区</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-8 pt-6 border-t border-white/10 text-center text-gray-500 text-sm">
+                    <p>本游戏仅作为文化探索和数字体验，不代表任何宗教组织或机构。</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 游戏脚本 -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // 冈仁波齐真实转山路线节点（含海拔、类型、描述）
+        const KAILASH_ROUTE = [
+            {
+                name: "塔钦", 
+                type: "start", 
+                elevation: 4675, 
+                desc: "转山起点，小镇配套完善，可购置补给", 
+                x: 0.2,  // 调整为椭圆左下角
+                y: 0.8 
+            },
+            {
+                name: "补给点(4678M)", 
+                type: "supply", 
+                elevation: 4678, 
+                desc: "起点附近补给站", 
+                x: 0.3, 
+                y: 0.9 
+            },
+            {
+                name: "色龙寺", 
+                type: "temple", 
+                elevation: 5020, 
+                desc: "转山首个寺庙，可短暂祈福休息", 
+                x: 0.4, 
+                y: 0.85 
+            },
+            {
+                name: "江扎寺", 
+                type: "temple", 
+                elevation: 5060, 
+                desc: "历史悠久，转山重要地标", 
+                x: 0.5, 
+                y: 0.8 
+            },
+            {
+                name: "补给点(5057M)", 
+                type: "supply", 
+                elevation: 5057, 
+                desc: "中途补给站", 
+                x: 0.6, 
+                y: 0.75 
+            },
+            {
+                name: "止热寺", 
+                type: "camp", 
+                elevation: 5370, 
+                desc: "第一天徒步终点，可住宿补给", 
+                x: 0.7, 
+                y: 0.65 
+            },
+            {
+                name: "天葬台", 
+                type: "landmark", 
+                elevation: 5500, 
+                desc: "传统天葬场所，文化地标", 
+                x: 0.8, 
+                y: 0.5 
+            },
+            {
+                name: "卓玛拉垭口", 
+                type: "pass", 
+                elevation: 5648, 
+                desc: "转山最高点，海拔挑战大", 
+                x: 0.85, 
+                y: 0.3 
+            },
+            {
+                name: "托吉措", 
+                type: "landmark", 
+                elevation: 5600, 
+                desc: "高原圣湖，景色壮观", 
+                x: 0.8, 
+                y: 0.15 
+            },
+            {
+                name: "补给休息点(5233M)", 
+                type: "supply", 
+                elevation: 5233, 
+                desc: "垭口后补给站", 
+                x: 0.7, 
+                y: 0.1 
+            },
+            {
+                name: "祖楚寺", 
+                type: "temple", 
+                elevation: 4860, 
+                desc: "第二天徒步终点，传统休息点", 
+                x: 0.6, 
+                y: 0.2 
+            },
+            {
+                name: "田揭陀山", 
+                type: "landmark", 
+                elevation: 5805, 
+                desc: "宗教圣山", 
+                x: 0.5, 
+                y: 0.15 
+            },
+            {
+                name: "十三金塔", 
+                type: "landmark", 
+                elevation: 5860, 
+                desc: "宗教文化地标，历史遗迹", 
+                x: 0.4, 
+                y: 0.2 
+            },
+            {
+                name: "曲谷寺", 
+                type: "temple", 
+                elevation: 4860, 
+                desc: "古老寺庙，感受历史沉淀", 
+                x: 0.3, 
+                y: 0.3 
+            },
+            {
+                name: "补给点(4965M)", 
+                type: "supply", 
+                elevation: 4965, 
+                desc: "下山路段补给站", 
+                x: 0.25, 
+                y: 0.45 
+            },
+            {
+                name: "经幡广场（两腿佛塔）", 
+                type: "landmark", 
+                elevation: 4740, 
+                desc: "转山终点标志，完成朝圣仪式", 
+                x: 0.2, 
+                y: 0.65 
+            }
+        ]
+
+        // 每日徒步分段（对应地图说明）
+        const DAILY_SEGMENTS = [
+            {
+                day: 1,
+                start: "塔钦",
+                end: "止热寺",
+                distance: 20, // 公里
+                ascent: 2000, // 累计上升海拔
+                time: "6小时左右"
+            },
+            {
+                day: 2,
+                start: "止热寺",
+                end: "祖楚寺",
+                distance: 18,
+                ascent: 550, 
+                descent: 600,
+                time: "7小时左右"
+            },
+            {
+                day: 3,
+                start: "祖楚寺",
+                end: "塔钦",
+                distance: 14,
+                descent: 150,
+                time: "4小时左右"
+            }
+        ];
+
+        // 等待DOM加载完成
+        document.addEventListener('DOMContentLoaded', initGame);
+
+        // 初始化游戏
+        function initGame() {
+            // 粒子背景效果
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS("particles-js", {
+                    particles: {
+                        number: { value: 80, density: { enable: true, value_area: 800 } },
+                        color: { value: "#ffffff" },
+                        shape: { type: "circle" },
+                        opacity: { value: 0.5, random: true },
+                        size: { value: 3, random: true },
+                        line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.2, width: 1 },
+                        move: { enable: true, speed: 1, direction: "none", random: true, straight: false, out_mode: "out", bounce: false }
+                    },
+                    interactivity: {
+                        detect_on: "canvas",
+                        events: {
+                            onhover: { enable: true, mode: "grab" },
+                            onclick: { enable: true, mode: "push" },
+                            resize: true
+                        },
+                        modes: {
+                            grab: { distance: 140, line_linked: { opacity: 0.3 } },
+                            push: { particles_nb: 3 }
+                        }
+                    },
+                    retina_detect: true
+                });
+            }
+
+            // 移动端菜单切换
+            document.getElementById('menu-toggle').addEventListener('click', function() {
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // 关闭移动菜单
+                        document.getElementById('mobile-menu').classList.add('hidden');
+                    }
+                });
+            });
+
+            // 游戏逻辑
+            const canvas = document.getElementById('game-canvas');
+            const ctx = canvas.getContext('2d');
+            const startBtn = document.getElementById('start-btn');
+            const pauseBtn = document.getElementById('pause-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const overlayStartBtn = document.getElementById('overlay-start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const shareBtn = document.getElementById('share-btn');
+            const autoPilotBtn = document.getElementById('auto-pilot-btn');
+            const gameStart = document.getElementById('game-start');
+            const gameOver = document.getElementById('game-over');
+            const progressEl = document.getElementById('progress');
+            const energyEl = document.getElementById('energy');
+            const currentLocationEl = document.getElementById('current-location');
+            const playerElevationEl = document.getElementById('player-elevation');
+            const finalProgressEl = document.getElementById('final-progress');
+            const finalMessageEl = document.getElementById('final-message');
+            const playerNameInput = document.getElementById('player-name');
+            const routeGuide = document.getElementById('route-guide');
+            const routeStepEl = document.getElementById('route-step');
+            const routeInstructionEl = document.getElementById('route-instruction');
+            const currentSegmentEl = document.getElementById('current-segment');
+            const segmentInfoEl = document.getElementById('segment-info');
+            const segmentDistanceEl = document.getElementById('segment-distance');
+            const segmentTimeEl = document.getElementById('segment-time');
+            const routeGuideToggle = document.getElementById('route-guide-toggle');
+
+            // 游戏状态
+            let isGameRunning = false;
+            let isAutoPilot = false;
+            let lastTime = 0;
+            let keys = {};
+            let fps = 0;
+            let lastFpsUpdateTime = 0;
+            let frameCount = 0;
+            
+            // 游戏数据
+            let gameState = {
+                playerPosition: { x: canvas.width * 0.25, y: canvas.height * 0.8 }, // 初始位置：塔钦
+                playerDirection: 0, // 角度
+                playerSpeed: 2,     // 移动速度
+                playerElevation: 4675, // 初始海拔（塔钦）
+                currentSegment: 0,    // 当前在第几天的路段
+                supplies: 100,        // 补给值（影响能量恢复）
+                visitedNodes: [],     // 已打卡节点
+                energy: 100,          // 能量值
+                progress: 0,          // 完成进度
+                lastNodeIndex: 0      // 最后访问的节点索引
+            };
+
+            // 初始化画布尺寸
+            function resizeCanvas() {
+                const container = canvas.parentElement;
+                canvas.width = container.clientWidth;
+                canvas.height = container.clientHeight * 0.9; // 留出一些空间给UI
+                drawMap();
+            }
+
+            // 窗口大小变化时重设画布尺寸
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            // 绘制游戏地图
+            function drawMap() {
+                // 清空画布
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // 绘制背景
+                const gradient = ctx.createRadialGradient(
+                    canvas.width / 2, 
+                    canvas.height / 2, 
+                    0, 
+                    canvas.width / 2, 
+                    canvas.height / 2, 
+                    canvas.width
+                );
+                gradient.addColorStop(0, '#1e293b');
+                gradient.addColorStop(1, '#0f172a');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // 绘制神山（简化版）
+                ctx.beginPath();
+                ctx.moveTo(canvas.width / 2, canvas.height / 3);
+                ctx.lineTo(canvas.width / 2 - 100, canvas.height / 2);
+                ctx.lineTo(canvas.width / 2, canvas.height / 2 + 50);
+                ctx.lineTo(canvas.width / 2 + 100, canvas.height / 2);
+                ctx.closePath();
+                
+                // 山的渐变
+                const mountainGradient = ctx.createLinearGradient(
+                    canvas.width / 2, 
+                    canvas.height / 3, 
+                    canvas.width / 2, 
+                    canvas.height / 2 + 50
+                );
+                mountainGradient.addColorStop(0, '#64748b');
+                mountainGradient.addColorStop(1, '#334155');
+                ctx.fillStyle = mountainGradient;
+                ctx.fill();
+                
+                // 山顶积雪
+                ctx.beginPath();
+                ctx.moveTo(canvas.width / 2, canvas.height / 3);
+                ctx.lineTo(canvas.width / 2 - 50, canvas.height / 2 - 30);
+                ctx.lineTo(canvas.width / 2, canvas.height / 2 - 10);
+                ctx.lineTo(canvas.width / 2 + 50, canvas.height / 2 - 30);
+                ctx.closePath();
+                ctx.fillStyle = '#f8fafc';
+                ctx.fill();
+                
+                // 绘制路线
+                drawRoute();
+                
+                // 绘制路线节点
+                drawRouteNodes();
+                
+                // 绘制玩家
+                drawPlayer();
+                
+                // 绘制海拔高度变化参考线
+                drawElevationGuide();
+                
+                // 如果启用，显示FPS
+                const fpsToggle = document.getElementById('fps-toggle');
+                if (fpsToggle.checked) {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                    ctx.font = '12px sans-serif';
+                    ctx.fillText(`FPS: ${Math.round(fps)}`, 10, 20);
+                }
+            }
+
+            // 绘制转山路线
+            function drawRoute() {
+                ctx.beginPath();
+                // 按路线节点顺序连线
+                KAILASH_ROUTE.forEach((node, idx) => {
+                    if (idx === 0) {
+                        ctx.moveTo(
+                            canvas.width * node.x, 
+                            canvas.height * node.y
+                        );
+                    } else {
+                        ctx.lineTo(
+                            canvas.width * node.x, 
+                            canvas.height * node.y
+                        );
+                    }
+                });
+                // 回到起点形成闭环
+                ctx.lineTo(
+                    canvas.width * KAILASH_ROUTE[0].x, 
+                    canvas.height * KAILASH_ROUTE[0].y
+                );
+                
+                // 路线样式
+                ctx.strokeStyle = "rgba(249, 115, 22, 0.7)"; // 橙色路线
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                
+                // 路线虚线（表示方向）
+                ctx.setLineDash([10, 5]);
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            // 渲染路线节点（寺庙、补给点等）
+            function drawRouteNodes() {
+                KAILASH_ROUTE.forEach((node, idx) => {
+                    // 节点基础样式
+                    ctx.beginPath();
+                    ctx.arc(
+                        canvas.width * node.x, 
+                        canvas.height * node.y, 
+                        8, 0, 2 * Math.PI
+                    );
+                    
+                    // 根据类型设置颜色
+                    let color = "#ffffff";
+                    if (node.type === "start") color = "#2563eb";   // 起点蓝色
+                    if (node.type === "temple") color = "#eab308";  // 寺庙黄色
+                    if (node.type === "camp") color = "#ef4444";    // 营地红色
+                    if (node.type === "pass") color = "#60a5fa";    // 垭口蓝色
+                    
+                    // 如果是已访问节点，增加光晕效果
+                    if (gameState.visitedNodes.includes(idx)) {
+                        ctx.shadowColor = color;
+                        ctx.shadowBlur = 15;
+                    }
+                    
+                    ctx.fillStyle = color;
+                    ctx.fill();
+                    
+                    // 重置阴影
+                    ctx.shadowColor = 'transparent';
+                    ctx.shadowBlur = 0;
+                    
+                    // 绘制节点名称
+                    ctx.fillStyle = "#ffffff";
+                    ctx.font = "12px sans-serif";
+                    ctx.fillText(
+                        node.name, 
+                        canvas.width * node.x + 12, 
+                        canvas.height * node.y + 4
+                    );
+                    
+                    // 绘制海拔
+                    ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+                    ctx.font = "10px sans-serif";
+                    ctx.fillText(
+                        `${node.elevation}m`, 
+                        canvas.width * node.x + 12, 
+                        canvas.height * node.y + 20
+                    );
+                });
+            }
+
+            // 绘制玩家
+            function drawPlayer() {
+                // 玩家主体
+                ctx.beginPath();
+                ctx.arc(
+                    gameState.playerPosition.x, 
+                    gameState.playerPosition.y, 
+                    10, 0, 2 * Math.PI
+                );
+                
+                // 应用保存的颜色或使用默认能量颜色
+                const savedColor = localStorage.getItem('playerColor');
+                let playerColor;
+                if (savedColor) {
+                    playerColor = savedColor;
+                } else {
+                    // 默认能量颜色
+                    playerColor = `hsl(${Math.max(0, gameState.energy * 1.2)}, 100%, 50%)`;
+                }
+                ctx.fillStyle = playerColor;
+                ctx.fill();
+                
+                // 玩家方向指示器
+                ctx.beginPath();
+                ctx.moveTo(
+                    gameState.playerPosition.x, 
+                    gameState.playerPosition.y
+                );
+                ctx.lineTo(
+                    gameState.playerPosition.x + Math.cos(gameState.playerDirection) * 15,
+                    gameState.playerPosition.y + Math.sin(gameState.playerDirection) * 15
+                );
+                ctx.strokeStyle = "#ffffff";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // 如果是自动朝圣模式，添加指示器
+                if (isAutoPilot) {
+                    ctx.beginPath();
+                    ctx.arc(
+                        gameState.playerPosition.x, 
+                        gameState.playerPosition.y, 
+                        15, 0, 2 * Math.PI
+                    );
+                    ctx.strokeStyle = "#22c55e";
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([5, 3]);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+            }
+
+            // 绘制海拔高度变化参考线
+            function drawElevationGuide() {
+                const guideHeight = 60;
+                const guideY = canvas.height - 80;
+                const guideWidth = canvas.width - 40; // 留出边距
+                
+                // 参考线背景
+                ctx.fillStyle = "rgba(15, 23, 42, 0.7)"; // 深青色半透明
+                ctx.fillRect(20, guideY, guideWidth, guideHeight);
+                
+                // 边框
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+                ctx.lineWidth = 1;
+                ctx.strokeRect(20, guideY, guideWidth, guideHeight);
+                
+                // 绘制海拔曲线
+                ctx.beginPath();
+                
+                // 找到最大和最小海拔
+               
+                 // 找到最大和最小海拔
+                let elevations = KAILASH_ROUTE.map(node => node.elevation);
+                let maxElevation = Math.max(...elevations);
+                let minElevation = Math.min(...elevations);
+                // 绘制基线
+                ctx.moveTo(20, guideY + guideHeight/2);
+                ctx.lineTo(20 + guideWidth, guideY + guideHeight/2);
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
+                ctx.setLineDash([5, 3]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                
+                // 绘制海拔曲线
+                ctx.beginPath();
+                
+                // 计算每个节点的位置
+                KAILASH_ROUTE.forEach((node, idx) => {
+                    const x = 20 + (idx / (KAILASH_ROUTE.length - 1)) * guideWidth;
+                    const normalizedElevation = (node.elevation - minElevation) / (maxElevation - minElevation);
+                    const y = guideY + guideHeight - normalizedElevation * guideHeight;
+                    
+                    if (idx === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                });
+                
+                // 闭合路径以便填充
+                ctx.lineTo(20 + guideWidth, guideY + guideHeight);
+                ctx.lineTo(20, guideY + guideHeight);
+                ctx.closePath();
+                
+                // 创建渐变填充
+                // 避免重复声明，使用 let 替换 const 或者直接使用已有的变量
+                // 移除重复声明，使用已有的 gradient 变量或修改变量名避免重复
+                // 这里推测为重复代码，删除该行，后续使用前面定义的 gradient 变量
+                // 若前面无定义，可保留第一个定义，删除后续重复定义
+                // 因报错为重复声明，故此处注释掉该行
+                 const gradient = ctx.createLinearGradient(20, guideY, 20, guideY + guideHeight);
+                gradient.addColorStop(0, "rgba(96, 165, 250, 0.6)"); // 浅蓝色
+                gradient.addColorStop(1, "rgba(96, 165, 250, 0.1)"); // 几乎透明
+                
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                
+                // 绘制曲线轮廓
+                ctx.beginPath();
+                KAILASH_ROUTE.forEach((node, idx) => {
+                    const x = 20 + (idx / (KAILASH_ROUTE.length - 1)) * guideWidth;
+                    const normalizedElevation = (node.elevation - minElevation) / (maxElevation - minElevation);
+                    const y = guideY + guideHeight - normalizedElevation * guideHeight;
+                    
+                    if (idx === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                });
+                
+                ctx.strokeStyle = "rgba(96, 165, 250, 0.8)";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // 标记当前位置
+                let currentProgress = gameState.progress / 100;
+                let currentX = 20 + currentProgress * guideWidth;
+                // 找到当前海拔（通过插值计算）
+                let currentElevation = gameState.playerElevation;
+                
+                // 绘制当前位置指示器
+                ctx.beginPath();
+                ctx.moveTo(currentX, guideY);
+                ctx.lineTo(currentX, guideY + guideHeight);
+                ctx.strokeStyle = "rgba(249, 115, 22, 0.8)"; // 橙色
+                ctx.setLineDash([3, 2]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                
+                // 绘制当前海拔标记
+                ctx.beginPath();
+                ctx.arc(currentX, guideY + guideHeight - ((currentElevation - minElevation) / (maxElevation - minElevation) * guideHeight), 5, 0, 2 * Math.PI);
+                ctx.fillStyle = "#f97316"; // 橙色
+                ctx.fill();
+                
+                // 绘制海拔标尺
+                ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+                ctx.font = "10px sans-serif";
+                ctx.fillText(`${Math.round(maxElevation)}m`, 10, guideY + 10);
+                ctx.fillText(`${Math.round(minElevation)}m`, 10, guideY + guideHeight - 5);
+                
+                // 绘制当前海拔值
+                ctx.fillText(`${Math.round(currentElevation)}m`, currentX + 8, guideY + guideHeight - ((currentElevation - minElevation) / (maxElevation - minElevation) * guideHeight) + 4);
+                
+                // 绘制海拔图例标题
+                ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+                ctx.font = "12px sans-serif";
+                ctx.fillText("海拔变化 (米)", 20, guideY - 5);
+                                ctx.fillStyle = "rgba(15, 23, 42, 0.7)"; // 深青色半透明
+                ctx.fillRect(20, guideY, canvas.width - 40, guideHeight);
+                
+                // 边框
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+                ctx.lineWidth = 1;
+                ctx.strokeRect(20, guideY, canvas.width - 40, guideHeight);
+                
+                // 绘制海拔曲线
+                ctx.beginPath();
+                
+                // 找到最大和最小海拔
+                elevations = KAILASH_ROUTE.map(node => node.elevation);
+                maxElevation = Math.max(...elevations);
+                minElevation = Math.min(...elevations);
+                
+                // 绘制基线
+                ctx.moveTo(20, guideY + guideHeight/2);
+                ctx.lineTo(20 + canvas.width - 40, guideY + guideHeight/2);
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
+                ctx.setLineDash([5, 3]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                
+                // 绘制海拔曲线
+                ctx.beginPath();
+                
+                // 计算每个节点的位置
+                KAILASH_ROUTE.forEach((node, idx) => {
+                    const x = 20 + (idx / (KAILASH_ROUTE.length - 1)) * (canvas.width - 40);
+                    const normalizedElevation = (node.elevation - minElevation) / (maxElevation - minElevation);
+                    const y = guideY + guideHeight - normalizedElevation * guideHeight;
+                    
+                    if (idx === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                });
+                
+                // 闭合路径以便填充
+                ctx.lineTo(20 + canvas.width - 40, guideY + guideHeight);
+                ctx.lineTo(20, guideY + guideHeight);
+                ctx.closePath();
+                
+                // 创建渐变填充
+                //const gradient = ctx.createLinearGradient(20, guideY, 20, guideY + guideHeight);
+                gradient.addColorStop(0, "rgba(96, 165, 250, 0.6)"); // 浅蓝色
+                gradient.addColorStop(1, "rgba(96, 165, 250, 0.1)"); // 几乎透明
+                
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                
+                // 绘制曲线轮廓
+                ctx.beginPath();
+                KAILASH_ROUTE.forEach((node, idx) => {
+                    const x = 20 + (idx / (KAILASH_ROUTE.length - 1)) * (canvas.width - 40);
+                    const normalizedElevation = (node.elevation - minElevation) / (maxElevation - minElevation);
+                    const y = guideY + guideHeight - normalizedElevation * guideHeight;
+                    
+                    if (idx === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                });
+                
+                ctx.strokeStyle = "rgba(96, 165, 250, 0.8)";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            
+                currentProgress = gameState.progress / 100;
+                currentX = 20 + currentProgress * (canvas.width - 40);
+                
+                // 找到当前海拔（通过插值计算）
+                 currentElevation = gameState.playerElevation;
+                
+                // 绘制当前位置指示器
+                ctx.beginPath();
+                ctx.moveTo(currentX, guideY);
+                ctx.lineTo(currentX, guideY + guideHeight);
+                ctx.strokeStyle = "rgba(249, 115, 22, 0.8)"; // 橙色
+                ctx.setLineDash([3, 2]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                
+                // 绘制当前海拔标记
+                ctx.beginPath();
+                ctx.arc(currentX, guideY + guideHeight - ((currentElevation - minElevation) / (maxElevation - minElevation) * guideHeight), 5, 0, 2 * Math.PI);
+                ctx.fillStyle = "#f97316"; // 橙色
+                ctx.fill();
+                
+                // 绘制海拔标尺
+                ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+                ctx.font = "10px sans-serif";
+                ctx.fillText(`${Math.round(maxElevation)}m`, 10, guideY + 10);
+                ctx.fillText(`${Math.round(minElevation)}m`, 10, guideY + guideHeight - 5);
+                
+                // 绘制当前海拔值
+                ctx.fillText(`${Math.round(currentElevation)}m`, currentX + 8, guideY + guideHeight - ((currentElevation - minElevation) / (maxElevation - minElevation) * guideHeight) + 4);
+                
+                // 绘制海拔图例标题
+                ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+                ctx.font = "12px sans-serif";
+                ctx.fillText("海拔变化 (米)", 20, guideY - 5);
+            }
+
+            // 更新游戏状态
+            function updateGame(deltaTime) {
+                if (!isGameRunning) return;
+                
+                // 处理用户输入
+                handleInput(deltaTime);
+                
+                // 自动朝圣模式
+                if (isAutoPilot) {
+                    autoPilot(deltaTime);
+                }
+                
+                // 更新玩家位置
+                updatePlayerPosition(deltaTime);
+                
+                // 检查是否到达路线节点
+                checkNodeCollision();
+                
+                // 更新能量值
+                updateEnergy(deltaTime);
+                
+                // 更新游戏进度
+                updateProgress();
+                
+                // 更新路段信息
+                updateSegmentInfo();
+                
+                // 检查游戏是否完成
+                checkGameCompletion();
+                
+                // 更新UI
+                updateUI();
+            }
+
+            // 处理用户输入
+            function handleInput(deltaTime) {
+                // 方向控制
+                if (keys['ArrowUp'] || keys['w'] || keys['W']) {
+                    // 向前移动
+                    gameState.playerSpeed = Math.min(4, gameState.playerSpeed + 0.05 * deltaTime);
+                } else if (keys['ArrowDown'] || keys['s'] || keys['S']) {
+                    // 向后移动
+                    gameState.playerSpeed = Math.max(0, gameState.playerSpeed - 0.05 * deltaTime);
+                } else {
+                    // 自然减速
+                    gameState.playerSpeed = Math.max(0, gameState.playerSpeed - 0.02 * deltaTime);
+                }
+                
+                // 转向控制
+                if (keys['ArrowLeft'] || keys['a'] || keys['A']) {
+                    gameState.playerDirection -= 0.02 * deltaTime;
+                }
+                if (keys['ArrowRight'] || keys['d'] || keys['D']) {
+                    gameState.playerDirection += 0.02 * deltaTime;
+                }
+                
+                // 显示/隐藏路线指南
+                if (keys['g'] || keys['G']) {
+                    keys['g'] = false;
+                    keys['G'] = false;
+                    routeGuide.classList.toggle('hidden');
+                }
+                
+                // 自动朝圣切换
+                if (keys['a'] || keys['A']) {
+                    keys['a'] = false;
+                    keys['A'] = false;
+                    toggleAutoPilot();
+                }
+            }
+
+            // 自动朝圣模式
+            function autoPilot(deltaTime) {
+                // 找到下一个目标节点
+                let nextNodeIndex = gameState.lastNodeIndex + 1;
+                if (nextNodeIndex >= KAILASH_ROUTE.length) {
+                    nextNodeIndex = 0; // 循环到第一个节点
+                }
+                
+                const nextNode = KAILASH_ROUTE[nextNodeIndex];
+                const targetX = canvas.width * nextNode.x;
+                const targetY = canvas.height * nextNode.y;
+                
+                // 计算到目标的方向
+                const dx = targetX - gameState.playerPosition.x;
+                const dy = targetY - gameState.playerPosition.y;
+                const angleToTarget = Math.atan2(dy, dx);
+                
+                // 平滑转向目标方向
+                const angleDiff = angleToTarget - gameState.playerDirection;
+                
+                // 确保角度差在 -π 到 π 之间
+                let normalizedAngleDiff = angleDiff;
+                while (normalizedAngleDiff > Math.PI) normalizedAngleDiff -= 2 * Math.PI;
+                while (normalizedAngleDiff < -Math.PI) normalizedAngleDiff += 2 * Math.PI;
+                
+                // 根据角度差调整转向速度
+                const turnSpeed = Math.min(0.03 * deltaTime, Math.abs(normalizedAngleDiff));
+                gameState.playerDirection += Math.sign(normalizedAngleDiff) * turnSpeed;
+                
+                // 保持一定速度
+                gameState.playerSpeed = 2.5;
+            }
+
+            // 更新玩家位置
+            function updatePlayerPosition(deltaTime) {
+                // 计算新位置
+                const moveX = Math.cos(gameState.playerDirection) * gameState.playerSpeed * deltaTime;
+                const moveY = Math.sin(gameState.playerDirection) * gameState.playerSpeed * deltaTime;
+                
+                gameState.playerPosition.x += moveX;
+                gameState.playerPosition.y += moveY;
+                
+                // 边界检查
+                if (gameState.playerPosition.x < 0) gameState.playerPosition.x = 0;
+                if (gameState.playerPosition.x > canvas.width) gameState.playerPosition.x = canvas.width;
+                if (gameState.playerPosition.y < 0) gameState.playerPosition.y = 0;
+                if (gameState.playerPosition.y > canvas.height) gameState.playerPosition.y = canvas.height;
+                
+                // 更新海拔（根据位置插值计算）
+                updateElevation();
+            }
+
+            // 更新海拔高度
+            function updateElevation() {
+                // 找到最近的两个节点
+                let closestNodes = findClosestNodes();
+                const nodeA = KAILASH_ROUTE[closestNodes[0]];
+                const nodeB = KAILASH_ROUTE[closestNodes[1]];
+                
+                // 计算到两个节点的距离
+                const distToA = distance(
+                    gameState.playerPosition.x, gameState.playerPosition.y,
+                    canvas.width * nodeA.x, canvas.height * nodeA.y
+                );
+                
+                const distToB = distance(
+                    gameState.playerPosition.x, gameState.playerPosition.y,
+                    canvas.width * nodeB.x, canvas.height * nodeB.y
+                );
+                
+                // 根据距离权重插值计算海拔
+                const totalDist = distToA + distToB;
+                const weightA = distToB / totalDist;
+                const weightB = distToA / totalDist;
+                
+                gameState.playerElevation = weightA * nodeA.elevation + weightB * nodeB.elevation;
+            }
+
+            // 找到最近的两个节点
+            function findClosestNodes() {
+                let distances = KAILASH_ROUTE.map((node, idx) => {
+                    return {
+                        index: idx,
+                        distance: distance(
+                            gameState.playerPosition.x, gameState.playerPosition.y,
+                            canvas.width * node.x, canvas.height * node.y
+                        )
+                    };
+                });
+                
+                // 按距离排序
+                distances.sort((a, b) => a.distance - b.distance);
+                
+                // 返回最近的两个节点索引
+                return [distances[0].index, distances[1].index];
+            }
+
+            // 计算两点之间的距离
+            function distance(x1, y1, x2, y2) {
+                return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            }
+
+            // 检查是否到达路线节点
+            function checkNodeCollision() {
+                KAILASH_ROUTE.forEach((node, idx) => {
+                    // 如果已经访问过该节点，则跳过
+                    if (gameState.visitedNodes.includes(idx)) return;
+                    
+                    // 计算玩家到节点的距离
+                    const dist = distance(
+                        gameState.playerPosition.x, gameState.playerPosition.y,
+                        canvas.width * node.x, canvas.height * node.y
+                    );
+                    
+                    // 如果距离小于阈值，则视为到达该节点
+                    if (dist < 30) {
+                        // 添加到已访问节点列表
+                        gameState.visitedNodes.push(idx);
+                        
+                        // 更新当前位置UI
+                        currentLocationEl.textContent = `位置: ${node.name}`;
+                        
+                        // 更新路线指南
+                        routeStepEl.textContent = `当前位置: ${node.name}`;
+                        
+                        // 如果是寺庙或营地，恢复一些能量
+                        if (node.type === "temple" || node.type === "camp") {
+                            gameState.energy = Math.min(100, gameState.energy + 30);
+                            
+                            // 显示提示信息
+                            showNotification(`在${node.name}休息，能量恢复 +30%`);
+                        }
+                        
+                        // 更新最后访问的节点索引
+                        gameState.lastNodeIndex = idx;
+                        
+                        // 更新路段
+                        updateCurrentSegment();
+                    }
+                });
+            }
+
+            // 更新当前路段
+            function updateCurrentSegment() {
+                // 根据已访问的节点确定当前路段
+                if (gameState.visitedNodes.includes(0) && !gameState.visitedNodes.includes(5)) {
+                    gameState.currentSegment = 0; // 第一天：塔钦 → 止热寺
+                } else if (gameState.visitedNodes.includes(3) && !gameState.visitedNodes.includes(10)) {
+                    gameState.currentSegment = 1; // 第二天：止热寺 → 祖楚寺
+                } else {
+                    gameState.currentSegment = 2; // 第三天：祖楚寺 → 塔钦
+                }
+            }
+
+            // 更新路段信息
+            function updateSegmentInfo() {
+                const currentSegment = DAILY_SEGMENTS[gameState.currentSegment];
+                currentSegmentEl.textContent = currentSegment.day;
+                segmentInfoEl.textContent = `${currentSegment.start} → ${currentSegment.end}`;
+                segmentDistanceEl.textContent = currentSegment.distance;
+                segmentTimeEl.textContent = currentSegment.time;
+            }
+
+            // 更新能量值
+            function updateEnergy(deltaTime) {
+                // 移动时消耗能量
+                if (gameState.playerSpeed > 0) {
+                    gameState.energy = Math.max(0, gameState.energy - 0.01 * deltaTime);
+                    
+                    // 能量耗尽时减速
+                    if (gameState.energy <= 0) {
+                        gameState.playerSpeed = Math.max(0, gameState.playerSpeed - 0.03 * deltaTime);
+                    }
+                } else {
+                    // 静止时恢复能量
+                    gameState.energy = Math.min(100, gameState.energy + 0.005 * deltaTime);
+                }
+            }
+
+            // 更新游戏进度
+            function updateProgress() {
+                // 计算已访问节点的总距离
+                let visitedDistance = 0;
+                for (let i = 0; i < gameState.visitedNodes.length; i++) {
+                    const currentNode = gameState.visitedNodes[i];
+                    const nextNode = gameState.visitedNodes[i + 1] !== undefined ? gameState.visitedNodes[i + 1] : 0;
+                    
+                    // 计算从当前节点到下一个节点的距离
+                    if (i < gameState.visitedNodes.length - 1) {
+                        visitedDistance += distance(
+                            canvas.width * KAILASH_ROUTE[currentNode].x, canvas.height * KAILASH_ROUTE[currentNode].y,
+                            canvas.width * KAILASH_ROUTE[nextNode].x, canvas.height * KAILASH_ROUTE[nextNode].y
+                        );
+                    }
+                }
+                
+                // 计算玩家到最后访问节点的距离
+                const lastNode = KAILASH_ROUTE[gameState.lastNodeIndex];
+                const playerToLastNode = distance(
+                    gameState.playerPosition.x, gameState.playerPosition.y,
+                    canvas.width * lastNode.x, canvas.height * lastNode.y
+                );
+                
+                // 计算总路线长度
+                let totalRouteLength = 0;
+                for (let i = 0; i < KAILASH_ROUTE.length; i++) {
+                    const currentNode = i;
+                    const nextNode = (i + 1) % KAILASH_ROUTE.length;
+                    
+                    totalRouteLength += distance(
+                        canvas.width * KAILASH_ROUTE[currentNode].x, canvas.height * KAILASH_ROUTE[currentNode].y,
+                        canvas.width * KAILASH_ROUTE[nextNode].x, canvas.height * KAILASH_ROUTE[nextNode].y
+                    );
+                }
+                
+                // 计算进度百分比
+                const progress = ((visitedDistance + playerToLastNode) / totalRouteLength) * 100;
+                gameState.progress = Math.min(100, Math.round(progress));
+            }
+
+            // 检查游戏是否完成
+            function checkGameCompletion() {
+                // 如果访问了所有节点，则游戏完成
+                if (gameState.progress >= 100) {
+                    endGame();
+                }
+            }
+
+            // 结束游戏
+            function endGame() {
+                isGameRunning = false;
+                
+                // 更新游戏结束界面
+                finalProgressEl.textContent = `完成度: ${gameState.progress}%`;
+                finalMessageEl.textContent = `恭喜，${playerNameInput.value}！你已完成数字世界的转山之旅，愿这份坚持与信念伴随你的现实生活。`;
+                
+                // 显示游戏结束覆盖层
+                gameOver.style.display = 'flex'
+                
+                
+                // 播放完成音效
+                playCompletionSound();
+            }
+
+            // 播放完成音效
+            function playCompletionSound() {
+                // 实际项目中应添加音效文件
+                console.log("播放完成音效");
+            }
+
+            // 显示通知
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-dark/90 bg-blur text-white px-4 py-2 rounded-lg z-50 animate-fade-in-out';
+                notification.textContent = message;
+                document.body.appendChild(notification);
+                
+                // 2秒后移除通知
+                setTimeout(() => {
+                    notification.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 500);
+                }, 2000);
+            }
+
+            // 初始化键盘事件监听
+            function initKeyboardEvents() {
+                // 按键按下
+                window.addEventListener('keydown', (e) => {
+                    keys[e.key] = true;
+                
+                // 阻止方向键和WASD的默认滚动行为（游戏运行时）
+                const movementKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd', 'W', 'A', 'S', 'D'];
+                if (isGameRunning && movementKeys.includes(e.key)) {
+                    e.preventDefault();
+                }
+                
+                // 空格键开始/暂停游戏
+                if (e.key === ' ') {
+                        e.preventDefault();
+                        toggleGame();
+                    }
+                    
+                    // R键重置游戏
+                    if (e.key.toLowerCase() === 'r') {
+                        resetGame();
+                    }
+                    
+                    // G键显示/隐藏路线指南
+                    if (e.key.toLowerCase() === 'g') {
+                        routeGuide.classList.toggle('hidden');
+                    }
+                    
+                    // A键切换自动朝圣
+                    if (e.key.toLowerCase() === 'a') {
+                        toggleAutoPilot();
+                    }
+                });
+                
+                // 按键释放
+                window.addEventListener('keyup', (e) => {
+                    keys[e.key] = false;
+                });
+            }
+
+            // 切换游戏状态
+            function toggleGame() {
+                isGameRunning = !isGameRunning;
+                
+                if (isGameRunning) {
+                    gameStart.classList.add('hidden');
+                    startBtn.classList.add('hidden');
+                    pauseBtn.classList.remove('hidden');
+                    lastTime = performance.now();
+                    requestAnimationFrame(gameLoop);
+                } else {
+                    startBtn.classList.remove('hidden');
+                    pauseBtn.classList.add('hidden');
+                }
+            }
+
+            // 切换自动朝圣模式
+            function toggleAutoPilot() {
+                isAutoPilot = !isAutoPilot;
+                
+                if (isAutoPilot) {
+                    autoPilotBtn.innerHTML = '<i class="fa fa-stop mr-1"></i> 停止自动';
+                    autoPilotBtn.classList.remove('bg-green-600');
+                    autoPilotBtn.classList.add('bg-red-600');
+                    showNotification('自动朝圣模式已开启');
+                } else {
+                    autoPilotBtn.innerHTML = '<i class="fa fa-rocket mr-1"></i> 自动朝圣';
+                    autoPilotBtn.classList.remove('bg-red-600');
+                    autoPilotBtn.classList.add('bg-green-600');
+                    showNotification('自动朝圣模式已关闭');
+                }
+            }
+
+            // 重置游戏
+            function resetGame() {
+                // 重置游戏状态
+                gameState = {
+                    playerPosition: { x: canvas.width * 0.25, y: canvas.height * 0.8 },
+                    playerDirection: 0,
+                    playerSpeed: 2,
+                    playerElevation: 4675,
+                    currentSegment: 0,
+                    supplies: 100,
+                    visitedNodes: [],
+                    energy: 100,
+                    progress: 0,
+                    lastNodeIndex: 0
+                };
+                
+                // 更新UI
+                updateUI();
+                
+                // 隐藏游戏结束覆盖层
+                gameOver.style.display = 'none';
+                
+                // 重置自动朝圣状态
+                if (isAutoPilot) {
+                    toggleAutoPilot();
+                }
+                
+                // 绘制初始状态
+                drawMap();
+                
+                // 显示游戏开始覆盖层
+                gameStart.classList.remove('hidden');
+                
+                // 停止游戏运行
+                isGameRunning = false;
+                startBtn.classList.remove('hidden');
+                pauseBtn.classList.add('hidden');
+                
+                // 更新路段信息
+                updateSegmentInfo();
+                
+                // 自动开始游戏
+                toggleGame();
+            }
+
+            // 更新UI显示
+            function updateUI() {
+                progressEl.textContent = `进度: ${gameState.progress}%`;
+                energyEl.textContent = `能量: ${Math.round(gameState.energy)}%`;
+                playerElevationEl.textContent = `海拔: ${Math.round(gameState.playerElevation)}米`;
+                finalProgressEl.textContent = `完成度: ${gameState.progress}%`;
+                
+                // 根据能量状态改变颜色
+                if (gameState.energy < 20) {
+                    energyEl.classList.add('text-red-500');
+                    energyEl.classList.remove('text-yellow-400');
+                } else if (gameState.energy < 50) {
+                    energyEl.classList.add('text-yellow-400');
+                    energyEl.classList.remove('text-red-500');
+                } else {
+                    energyEl.classList.remove('text-red-500', 'text-yellow-400');
+                }
+            }
+
+            // 游戏主循环
+            function gameLoop(timestamp) {
+                if (!isGameRunning) return;
+                
+                // 计算时间差
+                const deltaTime = (timestamp - lastTime) / 16.67; // 归一化到60FPS
+                lastTime = timestamp;
+                
+                // 更新游戏状态
+                updateGame(deltaTime);
+                
+                // 绘制游戏
+                drawMap();
+                
+                // 继续循环
+                requestAnimationFrame(gameLoop);
+            }
+
+            // 初始化游戏事件监听
+            function initEventListeners() {
+                // 开始按钮
+                startBtn.addEventListener('click', toggleGame);
+                overlayStartBtn.addEventListener('click', toggleGame);
+                
+                // 暂停按钮
+                pauseBtn.addEventListener('click', toggleGame);
+                
+                // 重置按钮
+                resetBtn.addEventListener('click', resetGame);
+                
+                // 重新开始按钮
+                restartBtn.addEventListener('click', resetGame);
+                
+                // 自动朝圣按钮
+                autoPilotBtn.addEventListener('click', toggleAutoPilot);
+                
+                // 分享按钮
+                shareBtn.addEventListener('click', () => {
+                    // 实际项目中应实现分享功能
+                    showNotification('分享功能即将推出');
+                });
+                
+                // 窗口大小改变时调整画布
+                window.addEventListener('resize', () => {
+                    // 重新设置画布尺寸
+                    canvas.width = canvas.parentElement.clientWidth;
+                    canvas.height = canvas.parentElement.clientHeight * 0.8;
+                    
+                    // 重新绘制地图
+                    drawMap();
+                });
+            }
+
+            // 初始化游戏设置
+            function initSettings() {
+                // 音量滑块
+                const volumeSlider = document.getElementById('volume-slider');
+                volumeSlider.addEventListener('input', (e) => {
+                    // 实际项目中应实现音量控制
+                    console.log(`音量: ${e.target.value}`);
+                });
+                
+                // 音乐开关
+                const musicToggle = document.getElementById('music-toggle');
+                musicToggle.addEventListener('change', (e) => {
+                    // 实际项目中应实现背景音乐控制
+                    console.log(`背景音乐: ${e.target.checked}`);
+                });
+                
+                // 音效开关
+                const sfxToggle = document.getElementById('sfx-toggle');
+                sfxToggle.addEventListener('change', (e) => {
+                    // 实际项目中应实现音效控制
+                    console.log(`音效: ${e.target.checked}`);
+                });
+                
+                // 画面质量选择
+                const qualitySelect = document.getElementById('quality-select');
+                qualitySelect.addEventListener('change', (e) => {
+                    // 实际项目中应实现画面质量控制
+                    console.log(`画面质量: ${e.target.value}`);
+                });
+                
+                // FPS显示开关
+                const fpsToggle = document.getElementById('fps-toggle');
+                fpsToggle.addEventListener('change', (e) => {
+                    // 实际项目中应实现FPS显示控制
+                    console.log(`显示FPS: ${e.target.checked}`);
+                });
+                
+                // 粒子效果开关
+                const particlesToggle = document.getElementById('particles-toggle');
+                particlesToggle.addEventListener('change', (e) => {
+                    // 实际项目中应实现粒子效果控制
+                    if (typeof particlesJS !== 'undefined') {
+                        if (e.target.checked) {
+                            particlesJS.load('particles-js', {
+                                particles: {
+                                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                                    color: { value: "#ffffff" },
+                                    shape: { type: "circle" },
+                                    opacity: { value: 0.5, random: true },
+                                    size: { value: 3, random: true },
+                                    line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.2, width: 1 },
+                                    move: { enable: true, speed: 1, direction: "none", random: true, straight: false, out_mode: "out", bounce: false }
+                                },
+                                interactivity: {
+                                    detect_on: "canvas",
+                                    events: {
+                                        onhover: { enable: true, mode: "grab" },
+                                        onclick: { enable: true, mode: "push" },
+                                        resize: true
+                                    },
+                                    modes: {
+                                        grab: { distance: 140, line_linked: { opacity: 0.3 } },
+                                        push: { particles_nb: 3 }
+                                    }
+                                },
+                                retina_detect: true
+                            });
+                        } else {
+                            const particlesContainer = document.getElementById('particles-js');
+                            if (particlesContainer.firstChild) {
+                                particlesContainer.removeChild(particlesContainer.firstChild);
+                            }
+                        }
+                    }
+                });
+                
+                // 路线指南开关
+                const routeGuideToggle = document.getElementById('route-guide-toggle');
+                routeGuideToggle.addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        routeGuide.classList.remove('hidden');
+                    } else {
+                        routeGuide.classList.add('hidden');
+                    }
+                });
+                
+                // 角色颜色选择
+                const characterBtns = document.querySelectorAll('.character-btn');
+                characterBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        // 移除所有选中状态
+                        characterBtns.forEach(b => {
+                            b.classList.remove('border-2', 'border-white');
+                            b.classList.add('border', 'border-gray-500');
+                        });
+                        
+                        // 添加选中状态
+                        btn.classList.remove('border', 'border-gray-500');
+                        btn.classList.add('border-2', 'border-white');
+                        
+                        // 保存选中的颜色到本地存储
+        const selectedColor = getComputedStyle(btn).backgroundColor;
+        localStorage.setItem('playerColor', selectedColor);
+                    });
+                });
+                
+                // 保存设置按钮
+                const saveSettingsBtn = document.getElementById('save-settings');
+                saveSettingsBtn.addEventListener('click', () => {
+                    // 实际项目中应实现设置保存
+                    showNotification('设置已保存');
+                });
+                
+                // 玩家名称输入
+                playerNameInput.addEventListener('input', (e) => {
+                    // 实际项目中应更新玩家名称显示
+                    console.log(`玩家名称: ${e.target.value}`);
+                });
+            }
+
+            // 设置画布尺寸
+            function setCanvasSize() {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight * 0.8;
+            }
+
+            // 初始化游戏
+            function init() {
+                // 设置画布尺寸
+                setCanvasSize();
+                
+                // 绘制初始地图
+                drawMap();
+                
+                // 初始化键盘事件
+                initKeyboardEvents();
+                
+                // 初始化事件监听
+                initEventListeners();
+                
+                // 初始化设置
+                initSettings();
+                
+                // 更新路段信息
+                updateSegmentInfo();
+            }
+
+            // 启动游戏
+            init();
+        }
+    </script>
+</body>
+</html>
